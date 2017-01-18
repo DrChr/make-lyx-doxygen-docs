@@ -1,6 +1,9 @@
-# Docker image to build LyX, using Qt4.
-# Intended for use on a CI worker (CI node) triggered by a CI server (Jenkins).
+# Docker image to build LyX, using
+# - Ubuntu 16.04 (Xenial)
+# - Qt4
+# - Autotools
 #
+# Primary intended use is on a CI worker, through a job on a CI server.
 FROM ubuntu:16.04
 MAINTAINER Christian Ridderström <chr@lyx.org>
 

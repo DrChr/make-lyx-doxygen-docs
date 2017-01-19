@@ -27,6 +27,7 @@ RUN apt-get update						\
 
 # Add script that'll be run in the container to build LyX
 ADD ./build_lyx.sh /usr/src
+ADD ./build_lyx_extended.sh /usr/src
 
 # Set default starting direcory and command for the container.
 # Mainly useful for interactive troubleshooting.

@@ -1,4 +1,4 @@
-1;95;0c# Docker image to build LyX using:
+# Docker image to build LyX using:
 # - Ubuntu 16.04 (Xenial)
 # - Qt4
 # - Autotools

@@ -20,7 +20,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ADD  ./install  /install
 RUN  bash /install/install_dependencies.sh && rm -rf /install
 
-# Copy scripts etc in ./build to /build in the container, e.g. to be
+# Copy scripts etc in ./build to /build in the image, e.g. to be
 # used in the container to build LyX
 ADD  ./build  /build
 
@@ -48,22 +48,19 @@ CMD /bin/bash
 # will stop. The build results are then available to the CI worker in
 # the folder that was bind mounted.
 #
-# For troubleshooting the containerr, it's useful to start it in
+# For troubleshooting the image, it's useful to start it in
 # interactive mode with a working terminal as follows:
-#	docker run -i -t  $CONTAINER /bin/bash
+#	docker run -i -t  $IMAGE /bin/bash
 #
 # The rows below are suitable for the command section of CI job
 # (uncomment the last rows):
 # ----------------------------------------------------------------------
 #
 # With the source repository cloned to a folder $WORKSPACE, and
-# $CONTAINER set to the name of the Docker image, the following
-# commands will:
-# - Start a Docker container (process), with $WORKSPACE bind-mounted
-#   to folder $C_WS in the container, and
-# - Make the container execute the script 'build_lyx.sh' that builds LyX
-# Note: Once the build script is done, it exits and the container stops
-# and is automatically removed.
+# $IMAGE set to the name of the Docker image, the following will:
+# - Start a container based on $IMAGE with $WORKSPACE bind-mounted to folder $C_WS
+# - Make the started container execute the script $C_SCRIPT to build LyX
+# Note: Docker automatically removes the container once the script exits.
 #	C_BUILD=/build           # Folder in container with build scripts etc
 #	C_WS=$C_BUILD/workspace  # Dest. in container for bind-mounted $WORKSPACE
-#	docker run -v $WORKSPACE:$C_WS  $CONTAINER  $C_BUILD/build_lyx.sh $C_WS
+#	docker run --rm -v $WORKSPACE:$C_WS  $IMAGE  $C_BUILD/build_lyx.sh $C_WS

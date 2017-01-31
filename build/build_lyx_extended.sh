@@ -1,7 +1,5 @@
 #!/bin/bash
 WORKSPACE=$1
-[ -d "$WORSKPACE" ] || exit 2
-cd "$WORKSPACE" || exit 3
 
 function failed() {
     printf "Command '%s' failed, exiting\n" "$*"
@@ -13,7 +11,7 @@ function do_or_fail() {
     "$@" || failed "$@"
 }
 
-
+do_or_fail cd "${WORKSPACE:-/script_invoked_without_path_to_workspace_folder}"
 # git reset --hard && git clean -xdf && 
 do_or_fail ./autogen.sh
 do_or_fail ./configure

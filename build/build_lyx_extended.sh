@@ -1,5 +1,7 @@
 #!/bin/bash
-cd "$1"
+WORKSPACE=$1
+[ -d "$WORSKPACE" ] || exit 2
+cd "$WORKSPACE" || exit 3
 
 function failed() {
     printf "Command '%s' failed, exiting\n" "$*"

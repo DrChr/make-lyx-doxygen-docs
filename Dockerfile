@@ -1,10 +1,12 @@
-# Docker image to build LyX using:
+# Docker image to generate source documenation for LyX using:
 # - Ubuntu 16.04 (Xenial)
 # - Qt4
 # - Autotools
+# - Doxygen
+# - Graphviz
 #
 # This Dockerfile is used to build a Docker image containing a set of
-# tools and libraries that can be used to build LyX from source.
+# tools and libraries that can be used to build LyX's source documentation.
 #
 # The Docker image is primarily intended to be deployed on a
 # continuous integration (CI) worker, a.k.a CI node or slave. See the
@@ -40,13 +42,13 @@ CMD /bin/bash
 #    template.
 # 3) "Bind-mount" the folder with the LyX source to the container,
 #    making the folder and LyX source available to the container.
-# 4) Make the container run the script that builds LyX
+# 4) Make the container run the script that does the actual work.
 #
-# A Docker command to do the above is given at the end.
+# A sequence of commands to do the above is given at the end.
 #
-# When the build is done, the build script will exit and the container
-# will stop. The build results are then available to the CI worker in
-# the folder that was bind mounted.
+# When the work is done, the script exits and the container stops,
+# leaving the results available to the CI worker in the folder
+# that was bind mounted.
 #
 # For troubleshooting the image, it's useful to start it in
 # interactive mode with a working terminal as follows:
@@ -59,8 +61,9 @@ CMD /bin/bash
 # With the source repository cloned to a folder $WORKSPACE, and
 # $IMAGE set to the name of the Docker image, the following will:
 # - Start a container based on $IMAGE with $WORKSPACE bind-mounted to folder $C_WS
-# - Make the started container execute the script $C_SCRIPT to build LyX
+# - Make the started container execute the script $C_SCRIPT to do the work
 # Note: Docker automatically removes the container once the script exits.
 #	C_BUILD=/build           # Folder in container with build scripts etc
 #	C_WS=$C_BUILD/workspace  # Dest. in container for bind-mounted $WORKSPACE
-#	docker run --rm -v $WORKSPACE:$C_WS  $IMAGE  $C_BUILD/build_lyx.sh $C_WS
+#	C_SCRIPT=$C_BUILD/make_doxygen_docs.sh
+#	docker run --rm -v $WORKSPACE:$C_WS  $IMAGE  $C_SCRIPT $C_WS

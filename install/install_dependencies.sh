@@ -24,8 +24,9 @@ do_or_fail  apt-get --quiet --assume-yes install	\
 		zlib1g-dev				\
 		pkg-config
 
-#do_or_fail  dpkg -i /install/automake_1.11.6-1_all.deb
-#do_or_fail  dpkg -i /install/autoconf_2.68-1ubuntu1_all.deb
+do_or_fail  apt-get --assume-yes install		\
+		doxygen					\
+		graphviz
 
 do_or_fail  apt-get --quiet --assume-yes build-dep 	\
 		lyx

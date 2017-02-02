@@ -12,7 +12,7 @@
 # continuous integration (CI) worker, a.k.a CI node or slave. See the
 # end of this file for further details.
 #
-FROM ubuntu:16.04
+FROM lyxproject/build-lyx-using-ubuntu-xenial-qt4-autotools
 MAINTAINER Christian Ridderström <chr@lyx.org>
 
 # Avoid warnings during certain invocations of 'apt-get'

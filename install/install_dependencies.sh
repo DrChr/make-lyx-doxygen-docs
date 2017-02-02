@@ -1,7 +1,8 @@
 #!/bin/bash
 #
-# Support script that runs commands in order to install dependencies
-# etc in a Docker image that is used to build LyX.
+# Support script that runs commands in order to install
+# additional dependencies in a Docker image that is used
+# to generate LyX's source documentation.
 
 function failed() {
     printf "Command '%s' failed, exiting\n" "$*"
@@ -17,18 +18,9 @@ function do_or_fail() {
 # Install tools and libraries needed to build LyX
 do_or_fail  apt-get --quiet update
 
-do_or_fail  apt-get --quiet --assume-yes install	\
-		build-essential				\
-		automake				\
-		autoconf				\
-		zlib1g-dev				\
-		pkg-config
-
 do_or_fail  apt-get --assume-yes install		\
 		doxygen					\
-		graphviz
-
-do_or_fail  apt-get --quiet --assume-yes build-dep 	\
-		lyx
+		graphviz				\
+		git
 
 do_or_fail  rm -rf /var/lib/apt/lists/*
